@@ -69,43 +69,43 @@ TECHNICAL SKILLS
         className="relative w-full max-w-4xl bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl flex flex-col max-h-[90vh] z-10 overflow-hidden print:border-none print:shadow-none print:max-h-none print:bg-white print:relative print:overflow-visible"
       >
         {/* Header - Hidden on Print */}
-        <div className="flex items-center justify-between p-4 border-b border-zinc-800 bg-zinc-900/60 backdrop-blur print:hidden">
-          <div className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-brand-green" />
-            <h2 className="text-sm font-semibold text-white tracking-tight">Professional Resume Viewer</h2>
+        <div className="flex items-center justify-between p-4 border-b border-zinc-800 bg-zinc-900/60 backdrop-blur print:hidden gap-2">
+          <div className="flex items-center gap-1.5 min-w-0">
+            <FileText className="w-4.5 h-4.5 text-brand-green shrink-0" />
+            <h2 className="text-xs sm:text-sm font-semibold text-white tracking-tight truncate">Resume</h2>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 shrink-0">
             <button
               onClick={handleCopyText}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-300 rounded-lg transition-all focus:outline-none"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-[11px] text-zinc-300 rounded-lg transition-all focus:outline-none"
               title="Copy plain text resume"
             >
               {copied ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-400 font-medium">Copied!</span>
+                  <span className="text-emerald-400 font-medium hidden xs:inline">Copied!</span>
                 </>
               ) : (
                 <>
                   <Copy className="w-3.5 h-3.5" />
-                  <span>Copy Text</span>
+                  <span className="hidden xs:inline">Copy</span>
                 </>
               )}
             </button>
 
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-brand-green hover:bg-brand-green/95 text-black text-xs font-bold rounded-lg transition-all shadow-md focus:outline-none"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 bg-brand-green hover:bg-brand-green/95 text-black text-[11px] font-bold rounded-lg transition-all shadow-md focus:outline-none"
               title="Open system print wizard to save as PDF"
             >
               <Printer className="w-3.5 h-3.5" />
-              <span>Print / Save as PDF</span>
+              <span className="hidden xs:inline">Print / Save</span>
             </button>
 
             <button
               onClick={onClose}
-              className="p-1.5 hover:bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-all focus:outline-none ml-2"
+              className="p-1.5 hover:bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-all focus:outline-none"
             >
               <X className="w-4 h-4" />
             </button>
@@ -113,7 +113,7 @@ TECHNICAL SKILLS
         </div>
 
         {/* Scrollable Printable CV Document */}
-        <div className="flex-1 overflow-y-auto p-8 sm:p-12 bg-white text-zinc-900 no-scrollbar print:p-0 print:overflow-visible print:bg-white">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-12 bg-white text-zinc-900 no-scrollbar print:p-0 print:overflow-visible print:bg-white">
           <div id="resume-document" className="max-w-[760px] mx-auto flex flex-col gap-6 text-sm leading-relaxed text-zinc-800 print:text-black">
             
             {/* CV Header */}

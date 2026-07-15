@@ -39,7 +39,7 @@ export default function Hero({ onOpenResume, theme }: HeroProps) {
   const isTypingComplete = typedText.length === nameToType.length;
 
   return (
-    <section className="relative min-h-[92vh] flex items-center pt-24 pb-16 overflow-hidden bg-zinc-950 text-white">
+    <section id="hero" className="relative min-h-[92vh] flex items-center pt-24 pb-16 overflow-hidden bg-zinc-950 text-white">
       
       {/* Dynamic Background mesh & Glowing Blobs */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
@@ -176,7 +176,7 @@ export default function Hero({ onOpenResume, theme }: HeroProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="flex items-center gap-4 mt-4 text-zinc-500 text-xs font-mono"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 mt-4 text-zinc-500 text-xs font-mono"
             >
               <a 
                 href={personalInfo.github} 
@@ -184,17 +184,17 @@ export default function Hero({ onOpenResume, theme }: HeroProps) {
                 referrerPolicy="no-referrer" 
                 className="hover:text-white transition-colors flex items-center gap-1.5 group"
               >
-                <Github className="w-4 h-4 group-hover:text-brand-green transition-colors" />
+                <Github className="w-4 h-4 group-hover:text-brand-green transition-colors shrink-0" />
                 <span>/Devpanchal25</span>
               </a>
-              <span className="text-zinc-800">|</span>
+              <span className="text-zinc-800 hidden xs:inline">|</span>
               <a 
                 href={personalInfo.linkedin} 
                 target="_blank" 
                 referrerPolicy="no-referrer" 
                 className="hover:text-white transition-colors flex items-center gap-1.5 group"
               >
-                <Linkedin className="w-4 h-4 group-hover:text-brand-blue transition-colors" />
+                <Linkedin className="w-4 h-4 group-hover:text-brand-blue transition-colors shrink-0" />
                 <span>/dev-panchal-302636384</span>
               </a>
             </motion.div>

@@ -115,7 +115,7 @@ export default function Certificates() {
                 initial={{ opacity: 0, scale: 0.95, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 15 }}
-                className="relative w-full max-w-2xl bg-white text-zinc-900 border border-zinc-200 shadow-2xl p-8 sm:p-12 rounded-2xl flex flex-col gap-6 z-10 relative overflow-hidden"
+                className="relative w-full max-w-2xl bg-white text-zinc-900 border border-zinc-200 shadow-2xl p-6 sm:p-12 rounded-2xl flex flex-col gap-6 z-10 relative overflow-hidden"
               >
                 {/* Close Button top corner */}
                 <button 

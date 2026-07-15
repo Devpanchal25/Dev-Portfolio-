@@ -223,7 +223,7 @@ export default function Projects() {
 
                   {/* Live Playground Anchor - Links to Hero phone simulator */}
                   <a
-                    href="#"
+                    href="#hero"
                     className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-brand-green/10 hover:bg-brand-green/20 text-xs font-semibold text-brand-green border border-brand-green/20 rounded-xl transition-all hover:scale-[1.02] focus:outline-none"
                   >
                     <Smartphone className="w-3.5 h-3.5" />

@@ -1,0 +1,176 @@
+import { Project, Internship, Education, Skill, Certificate } from './types';
+
+export const personalInfo = {
+  name: 'Panchal Dev Ghanshyambhai',
+  firstName: 'Dev',
+  title: 'Android Developer',
+  location: 'Vadodara, Gujarat, India',
+  email: 'devit250705@gmail.com',
+  phone: '+91 8866081024',
+  github: 'https://github.com/Devpanchal25',
+  linkedin: 'https://www.linkedin.com/in/dev-panchal-302636384',
+  credly: 'https://www.credly.com/users/dev_25', // from Dev_25 on Credly
+  birthDate: '25/07/2005',
+  hobbies: ['Cricket', 'Travelling', 'Movies'],
+  languages: ['English', 'Hindi', 'Gujarati'],
+  bio: 'Android Developer passionate about building scalable Android applications using modern Android technologies including Kotlin, Jetpack Compose, MVVM, Hilt, Retrofit, Coroutines, and Firebase. I enjoy solving real-world problems through clean architecture, intuitive UI, and high-performance mobile applications.'
+};
+
+export const skills: Skill[] = [
+  // Languages
+  { name: 'Kotlin', level: 'Expert', category: 'languages' },
+  { name: 'Java', level: 'Expert', category: 'languages' },
+  { name: 'Python', level: 'Advanced', category: 'languages' },
+  { name: 'C', level: 'Intermediate', category: 'languages' },
+  { name: 'JavaScript', level: 'Advanced', category: 'languages' },
+
+  // Android
+  { name: 'Jetpack Compose', level: 'Expert', category: 'android' },
+  { name: 'MVVM Architecture', level: 'Expert', category: 'android' },
+  { name: 'Dagger Hilt', level: 'Expert', category: 'android' },
+  { name: 'Retrofit', level: 'Expert', category: 'android' },
+  { name: 'Coroutines', level: 'Expert', category: 'android' },
+  { name: 'StateFlow', level: 'Expert', category: 'android' },
+  { name: 'Navigation Compose', level: 'Expert', category: 'android' },
+  { name: 'Room Database', level: 'Expert', category: 'android' },
+  { name: 'Firebase', level: 'Advanced', category: 'android' },
+  { name: 'Material Design 3', level: 'Expert', category: 'android' },
+
+  // Web
+  { name: 'React', level: 'Advanced', category: 'web' },
+  { name: 'HTML5', level: 'Expert', category: 'web' },
+  { name: 'CSS3', level: 'Expert', category: 'web' },
+  { name: 'Tailwind CSS', level: 'Expert', category: 'web' },
+
+  // Tools
+  { name: 'Android Studio', level: 'Expert', category: 'tools' },
+  { name: 'Git', level: 'Expert', category: 'tools' },
+  { name: 'GitHub', level: 'Expert', category: 'tools' },
+  { name: 'Postman', level: 'Expert', category: 'tools' },
+  { name: 'VS Code', level: 'Advanced', category: 'tools' },
+  { name: 'Google AI Studio', level: 'Advanced', category: 'tools' },
+
+  // Concepts
+  { name: 'REST APIs', level: 'Expert', category: 'concepts' },
+  { name: 'Dependency Injection', level: 'Expert', category: 'concepts' },
+  { name: 'Repository Pattern', level: 'Expert', category: 'concepts' },
+  { name: 'SQLite', level: 'Advanced', category: 'concepts' },
+  { name: 'MySQL', level: 'Intermediate', category: 'concepts' },
+  { name: 'NLP & AI concepts', level: 'Advanced', category: 'concepts' }
+];
+
+export const projects: Project[] = [
+  {
+    id: 'skycast',
+    title: 'SkyCast – Weather Forecast App',
+    description: 'Modern Android weather application developed using Kotlin and Jetpack Compose following MVVM architecture. Uses WeatherAPI with Retrofit to display real-time weather, city search, and responsive Material Design 3 UI.',
+    details: [
+      'Developed a weather application using Kotlin and Jetpack Compose with MVVM architecture.',
+      'Integrated WeatherAPI using Retrofit to display real-time weather, 7-day forecast, wind speed, humidity, and UV Index.',
+      'Implemented offline-first capabilities or caching mechanisms using StateFlow.',
+      'Designed a sleek Material 3 UI with beautiful glassmorphism weather cards and localized search features.'
+    ],
+    technologies: ['Kotlin', 'Jetpack Compose', 'MVVM', 'Hilt', 'Retrofit', 'Coroutines', 'StateFlow', 'Material Design 3'],
+    githubUrl: 'https://github.com/Devpanchal25/SkyCast',
+    demoUrl: '#demo',
+    type: 'android',
+    featured: true
+  },
+  {
+    id: 'employee-tracker',
+    title: 'Employee Performance Tracker',
+    description: 'Android application to manage employee records, assign tasks, and track employee performance using Room Database and Jetpack Compose.',
+    details: [
+      'Built an Android application to manage employee records, tasks, and historical performance.',
+      'Implemented robust CRUD operations using Room Database with MVVM architecture and Repository Pattern.',
+      'Designed a modern, highly interactive dashboard with tasks categorized by status (To Do, In Progress, Completed).',
+      'Optimized application performance and memory usage through asynchronous Room queries via Flow.'
+    ],
+    technologies: ['Kotlin', 'Jetpack Compose', 'Room Database', 'MVVM', 'StateFlow', 'Material 3'],
+    githubUrl: 'https://github.com/Devpanchal25',
+    demoUrl: '#demo',
+    type: 'android',
+    featured: true
+  },
+  {
+    id: 'justicia-ai',
+    title: 'Justicia AI – Legal Rights Assistant',
+    description: 'AI-powered legal rights assistant designed to provide legal guidance through intelligent conversations and automated email responses.',
+    details: [
+      'Developed Justicia AI, an AI-powered legal rights assistant to provide instant guidance on statutory rights.',
+      'Implemented automated email-based query handling and AI-generated responses using natural language models.',
+      'Applied NLP (Natural Language Processing) concepts and prompt engineering to improve conversation accuracy and relevance.',
+      'Designed a dual Python & JavaScript backend architecture to optimize processing speed and accuracy.'
+    ],
+    technologies: ['Python', 'JavaScript', 'NLP', 'AI', 'Email Automation', 'Google AI Studio'],
+    githubUrl: 'https://github.com/Devpanchal25',
+    demoUrl: '#demo',
+    type: 'ai',
+    featured: true
+  }
+];
+
+export const internships: Internship[] = [
+  {
+    id: 'mindmatrix',
+    role: 'Android App Development Intern',
+    company: 'MindMatrix (CL Infotech Pvt. Ltd.)',
+    companyDetail: 'Bangalore-based software solutions company specializing in modern mobile & cloud applications.',
+    period: 'Jan 2026 – Apr 2026',
+    location: 'Bangalore (Remote)',
+    bullets: [
+      'Developed native Android applications using Kotlin and Jetpack Compose, delivering butter-smooth 60fps UI frames.',
+      'Worked closely with Firebase services, Android Studio, Google Cloud Labs, and Google AI Studio to implement features and improve applications.',
+      'Contributed significantly to UI development, modular testing, automated debugging, and performance optimizations (app bundle size, layout depth).'
+    ],
+    technologies: ['Kotlin', 'Jetpack Compose', 'Android Studio', 'Firebase', 'Google AI Studio', 'Git']
+  },
+  {
+    id: 'ibm',
+    role: 'Artificial Intelligence Intern',
+    company: 'IBM SkillsBuild (CSRBOX)',
+    companyDetail: 'A collaborative CSR initiative powered by IBM to impart emerging technology internships.',
+    period: 'Jul 2025',
+    location: 'Ahmedabad (Remote)',
+    bullets: [
+      'Developed Justicia AI, an AI-powered legal rights assistant leveraging AI and automation concepts.',
+      'Applied NLP concepts, prompt engineering guidelines, and structured text parsing to improve user interactions.',
+      'Completed tech-focused social impact projects, gaining deep exposure to professional agile culture, collaborative coding, and deploying AI solutions.'
+    ],
+    technologies: ['Python', 'NLP', 'AI concepts', 'Prompt Engineering', 'JavaScript', 'Automation']
+  }
+];
+
+export const educationList: Education[] = [
+  {
+    degree: 'Bachelor of Engineering (B.E.)',
+    field: 'Information Technology',
+    institution: 'Sardar Patel College of Engineering and Technology',
+    period: '2023 – 2026',
+    location: 'Anand, Gujarat, India',
+    cgpa: '7.44'
+  },
+  {
+    degree: 'Diploma in Engineering',
+    field: 'Information Technology',
+    institution: 'Parul University',
+    period: '2020 – 2023',
+    location: 'Vadodara, Gujarat, India',
+    cgpa: '7.46'
+  }
+];
+
+export const certificates: Certificate[] = [
+  {
+    title: 'IBM SkillsBuild AI Internship Certificate',
+    issuer: 'IBM SkillsBuild / CSRBOX',
+    date: 'July 2025',
+    credentialId: 'CSRBOX-IBM-AI-2025-9824',
+    previewUrl: 'IBM SkillsBuild Internship Program',
+    bullets: [
+      'Completed a rigorous 4-week structured internship on Artificial Intelligence concepts and NLP.',
+      'Successfully developed and presented "Justicia AI" as a capstone project aimed at digital legal equity.',
+      'Certified in Prompt Engineering, AI Ethics, Chatbot Design, and Agile workflows.'
+    ]
+  }
+];

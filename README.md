@@ -31,4 +31,4 @@ Email: devit250705@gmail.com
 
 GitHub: https://github.com/Devpanchal25
 
-LinkedIn: (your LinkedIn)
+LinkedIn: www.linkedin.com/in/dev-panchal-302636384

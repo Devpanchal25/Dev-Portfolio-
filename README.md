@@ -1,34 +1,20 @@
-# 👋 Hi, I'm Dev Panchal
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-Android Developer passionate about building modern Android applications using Kotlin and Jetpack Compose.
+# Run and deploy your AI Studio app
 
-## 🚀 Tech Stack
+This contains everything you need to run your app locally.
 
-- Kotlin
-- Jetpack Compose
-- MVVM
-- Hilt
-- Retrofit
-- Coroutines
-- StateFlow
-- Firebase
-- Room Database
+View your app in AI Studio: https://ai.studio/apps/b6b88f36-f19c-46ff-9650-0a60434b64eb
 
-## 📱 Projects
+## Run Locally
 
-### 🌦️ SkyCast
-Modern weather application built using Kotlin, Jetpack Compose, MVVM, Hilt and WeatherAPI.
+**Prerequisites:**  Node.js
 
-### ⚖️ Justicia AI
-AI-powered legal rights assistant built using Python and NLP concepts.
 
-### 👨‍💼 Employee Performance Tracker
-Android application for employee management using Room Database and MVVM.
-
-## 📫 Contact
-
-Email: devit250705@gmail.com
-
-GitHub: https://github.com/Devpanchal25
-
-LinkedIn: www.linkedin.com/in/dev-panchal-302636384
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

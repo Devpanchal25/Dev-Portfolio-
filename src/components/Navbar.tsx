@@ -33,7 +33,6 @@ export default function Navbar({ onOpenResume, theme, onToggleTheme }: NavbarPro
     { name: 'About', href: '#about' },
     { name: 'Tech Stack', href: '#tech-stack' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Internships', href: '#internships' },
     { name: 'Education', href: '#education' },
     { name: 'Contact', href: '#contact' },
   ];
@@ -63,11 +62,15 @@ export default function Navbar({ onOpenResume, theme, onToggleTheme }: NavbarPro
               <Terminal className="w-4 sm:w-5 h-4 sm:h-5 text-black stroke-[2.5]" />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-bold tracking-tight text-white dark:text-white light:text-zinc-900 flex items-center gap-1.5 leading-none">
+              <span className={`text-sm font-bold tracking-tight flex items-center gap-1.5 leading-none no-light-override ${
+                theme === 'dark' ? 'text-white' : 'text-zinc-900'
+              }`}>
                 {personalInfo.firstName}
                 <span className="text-brand-green">.dev</span>
               </span>
-              <span className="text-[10px] text-zinc-500 dark:text-zinc-500 light:text-zinc-400 mt-1 font-mono leading-none">
+              <span className={`text-[10px] mt-1 font-mono leading-none no-light-override ${
+                theme === 'dark' ? 'text-zinc-500' : 'text-zinc-500'
+              }`}>
                 Android & Compose
               </span>
             </div>
@@ -79,7 +82,11 @@ export default function Navbar({ onOpenResume, theme, onToggleTheme }: NavbarPro
               <a
                 key={link.name}
                 href={link.href}
-                className="px-3 py-2 text-xs font-medium text-zinc-400 hover:text-white dark:text-zinc-400 dark:hover:text-white light:text-zinc-600 light:hover:text-zinc-900 rounded-lg hover:bg-zinc-900/30 dark:hover:bg-zinc-900/40 light:hover:bg-zinc-100 transition-all duration-200"
+                className={`px-3 py-2 text-xs font-medium rounded-lg transition-all duration-200 ${
+                  theme === 'dark' 
+                    ? 'text-zinc-400 hover:text-white hover:bg-zinc-900/40' 
+                    : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+                }`}
               >
                 {link.name}
               </a>
@@ -127,16 +134,24 @@ export default function Navbar({ onOpenResume, theme, onToggleTheme }: NavbarPro
 
       {/* Mobile Navigation Drawer */}
       <div 
-        className={`fixed top-0 bottom-0 right-0 w-72 z-85 md:hidden bg-zinc-950 dark:bg-zinc-950 light:bg-white border-l border-zinc-800 dark:border-zinc-800 light:border-zinc-200 p-6 flex flex-col justify-between transition-transform duration-300 ease-out print:hidden ${
+        className={`fixed top-0 bottom-0 right-0 w-72 z-85 md:hidden border-l p-6 flex flex-col justify-between transition-transform duration-300 ease-out print:hidden ${
+          theme === 'dark' 
+            ? 'bg-zinc-950 border-zinc-800' 
+            : 'bg-white border-zinc-200'
+        } ${
           mobileMenuOpen ? 'translate-x-0 shadow-2xl' : 'translate-x-full'
         }`}
       >
         <div className="flex flex-col gap-8 mt-12">
-          <div className="flex items-center gap-2 border-b border-zinc-800 dark:border-zinc-800 light:border-zinc-100 pb-4">
+          <div className={`flex items-center gap-2 border-b pb-4 ${
+            theme === 'dark' ? 'border-zinc-800' : 'border-zinc-100'
+          }`}>
             <div className="w-8 h-8 rounded-lg bg-brand-green flex items-center justify-center text-zinc-950">
               <Terminal className="w-4 h-4 text-black stroke-[2.5]" />
             </div>
-            <span className="font-bold text-white dark:text-white light:text-zinc-900 text-sm">
+            <span className={`font-bold text-sm no-light-override ${
+              theme === 'dark' ? 'text-white' : 'text-zinc-900'
+            }`}>
               {personalInfo.firstName}.dev
             </span>
           </div>
@@ -147,7 +162,11 @@ export default function Navbar({ onOpenResume, theme, onToggleTheme }: NavbarPro
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="py-2.5 px-4 text-sm font-medium text-zinc-400 hover:text-white dark:text-zinc-400 dark:hover:text-white light:text-zinc-600 light:hover:text-zinc-900 hover:bg-zinc-900/40 dark:hover:bg-zinc-900/40 light:hover:bg-zinc-100 rounded-xl transition-all"
+                className={`py-2.5 px-4 text-sm font-medium rounded-xl transition-all ${
+                  theme === 'dark'
+                    ? 'text-zinc-400 hover:text-white hover:bg-zinc-900/40'
+                    : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100'
+                }`}
               >
                 {link.name}
               </a>

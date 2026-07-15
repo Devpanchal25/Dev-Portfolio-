@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { X, Printer, Copy, FileText, Check, Download } from 'lucide-react';
 import { useState } from 'react';
-import { personalInfo, educationList, internships, projects, skills } from '../data';
+import { personalInfo, educationList, projects, skills } from '../data';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -27,13 +27,6 @@ GitHub: ${personalInfo.github} | LinkedIn: ${personalInfo.linkedin}
 
 PROFESSIONAL SUMMARY
 ${personalInfo.bio}
-
-EXPERIENCE & INTERNSHIPS
-${internships.map(intern => `
-- ${intern.role} | ${intern.company}
-  Period: ${intern.period} | Location: ${intern.location}
-  ${intern.bullets.map(b => `* ${b}`).join('\n  ')}
-`).join('\n')}
 
 PROJECTS
 ${projects.map(proj => `
@@ -156,34 +149,6 @@ TECHNICAL SKILLS
               <p className="text-zinc-700 text-xs leading-relaxed text-justify print:text-zinc-800">
                 {personalInfo.bio}
               </p>
-            </div>
-
-            {/* Internships */}
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-950 border-b border-zinc-800 pb-1 mb-3 print:border-black">
-                Internship & Training
-              </h3>
-              <div className="flex flex-col gap-4">
-                {internships.map((intern) => (
-                  <div key={intern.id} className="flex flex-col gap-1.5">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start text-xs">
-                      <div>
-                        <span className="font-bold text-zinc-950 text-xs">{intern.role}</span>
-                        <span className="text-zinc-500 mx-1.5">|</span>
-                        <span className="font-medium text-zinc-800">{intern.company}</span>
-                      </div>
-                      <span className="text-zinc-500 font-mono text-[11px] sm:text-right mt-0.5 sm:mt-0">
-                        {intern.period} | {intern.location}
-                      </span>
-                    </div>
-                    <ul className="list-disc pl-4 text-xs text-zinc-700 flex flex-col gap-1 print:text-zinc-800">
-                      {intern.bullets.map((bullet, index) => (
-                        <li key={index}>{bullet}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* Projects */}

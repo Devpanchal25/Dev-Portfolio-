@@ -1,4 +1,4 @@
-import { Project, Internship, Education, Skill, Certificate } from './types';
+import { Project, Education, Skill, Certificate } from './types';
 
 export const personalInfo = {
   name: 'Panchal Dev Ghanshyambhai',
@@ -107,37 +107,6 @@ export const projects: Project[] = [
     demoUrl: '#demo',
     type: 'ai',
     featured: true
-  }
-];
-
-export const internships: Internship[] = [
-  {
-    id: 'mindmatrix',
-    role: 'Android App Development Intern',
-    company: 'MindMatrix (CL Infotech Pvt. Ltd.)',
-    companyDetail: 'Bangalore-based software solutions company specializing in modern mobile & cloud applications.',
-    period: 'Jan 2026 – Apr 2026',
-    location: 'Bangalore (Remote)',
-    bullets: [
-      'Developed native Android applications using Kotlin and Jetpack Compose, delivering butter-smooth 60fps UI frames.',
-      'Worked closely with Firebase services, Android Studio, Google Cloud Labs, and Google AI Studio to implement features and improve applications.',
-      'Contributed significantly to UI development, modular testing, automated debugging, and performance optimizations (app bundle size, layout depth).'
-    ],
-    technologies: ['Kotlin', 'Jetpack Compose', 'Android Studio', 'Firebase', 'Google AI Studio', 'Git']
-  },
-  {
-    id: 'ibm',
-    role: 'Artificial Intelligence Intern',
-    company: 'IBM SkillsBuild (CSRBOX)',
-    companyDetail: 'A collaborative CSR initiative powered by IBM to impart emerging technology internships.',
-    period: 'Jul 2025',
-    location: 'Ahmedabad (Remote)',
-    bullets: [
-      'Developed Justicia AI, an AI-powered legal rights assistant leveraging AI and automation concepts.',
-      'Applied NLP concepts, prompt engineering guidelines, and structured text parsing to improve user interactions.',
-      'Completed tech-focused social impact projects, gaining deep exposure to professional agile culture, collaborative coding, and deploying AI solutions.'
-    ],
-    technologies: ['Python', 'NLP', 'AI concepts', 'Prompt Engineering', 'JavaScript', 'Automation']
   }
 ];
 

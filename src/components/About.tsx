@@ -6,9 +6,9 @@ export default function About() {
   const cards = [
     {
       icon: <Award className="w-5 h-5 text-brand-green" />,
-      title: 'Professional Experience',
-      value: '2 Internships',
-      desc: 'Android development at MindMatrix & AI focus at IBM SkillsBuild.'
+      title: 'Academic Standing',
+      value: '7.44 CGPA',
+      desc: 'Information Technology engineering student at SP College of Engineering.'
     },
     {
       icon: <Code2 className="w-5 h-5 text-brand-blue" />,
@@ -60,7 +60,7 @@ export default function About() {
             </h3>
             
             <p className="text-justify leading-relaxed text-sm sm:text-base">
-              I am an Information Technology student and an Android Developer, deep in my element when designing fluid, performant client-side flows for the Android ecosystem. Over the course of my coursework and internships, I have focused heavily on Kotlin, Jetpack Compose, state-management frameworks, and structured architectures.
+              I am an Information Technology student and an Android Developer, deep in my element when designing fluid, performant client-side flows for the Android ecosystem. Over the course of my academic coursework and personal projects, I have focused heavily on Kotlin, Jetpack Compose, state-management frameworks, and structured architectures.
             </p>
 
             <p className="text-justify leading-relaxed text-sm sm:text-base">
@@ -83,7 +83,7 @@ export default function About() {
             <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center gap-6 border-t border-zinc-900 pt-6">
               <div className="flex flex-col">
                 <span className="text-zinc-500 text-xs uppercase font-mono">Current Status</span>
-                <span className="text-white text-sm font-semibold mt-1">Seeking Software Engineering Roles</span>
+                <span className="text-white text-sm font-semibold mt-1">Seeking Android Developer Opportunities</span>
               </div>
               <div className="hidden sm:block w-px h-8 bg-zinc-800"></div>
               <div className="flex flex-col">

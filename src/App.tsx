@@ -6,7 +6,6 @@ import Hero from './components/Hero';
 import About from './components/About';
 import TechStack from './components/TechStack';
 import Projects from './components/Projects';
-import Internships from './components/Internships';
 import Education from './components/Education';
 import Certificates from './components/Certificates';
 import Contact from './components/Contact';
@@ -173,7 +172,7 @@ export default function App() {
                 color: #09090b !important;
               }
               .light-mode-override p,
-              .light-mode-override span,
+              .light-mode-override span:not(.text-brand-green):not(.no-light-override):not(.bg-brand-green),
               .light-mode-override li {
                 color: #3f3f46 !important;
               }
@@ -239,7 +238,6 @@ export default function App() {
             <About />
             <TechStack />
             <Projects />
-            <Internships />
             <Education />
             <Certificates />
             <Contact />

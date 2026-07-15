@@ -87,7 +87,9 @@ export default function Hero({ onOpenResume, theme }: HeroProps) {
               </motion.span>
               
               <h1 
-                className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight font-display leading-tight text-white dark:text-white light:text-zinc-950 min-h-[2.4em] sm:min-h-[2.2em] flex flex-col justify-end"
+                className={`text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight font-display leading-tight min-h-[2.4em] sm:min-h-[2.2em] flex flex-col justify-end no-light-override ${
+                  theme === 'dark' ? 'text-white' : 'text-zinc-900'
+                }`}
               >
                 <span>
                   {firstPart}
@@ -96,7 +98,11 @@ export default function Hero({ onOpenResume, theme }: HeroProps) {
                   )}
                 </span>
                 {typedText.length >= 11 && (
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-zinc-400 dark:from-white dark:to-zinc-400 light:from-zinc-900 light:to-zinc-950">
+                  <span className={`bg-clip-text text-transparent bg-gradient-to-r ${
+                    theme === 'dark' 
+                      ? 'from-white via-zinc-200 to-zinc-400' 
+                      : 'from-zinc-900 via-zinc-700 to-zinc-500'
+                  }`}>
                     {secondPart}
                     {!isTypingFirst && !isTypingComplete && cursorVisible && (
                       <span className="inline-block w-[3px] h-[0.8em] ml-1.5 bg-brand-green align-middle animate-pulse" />
@@ -196,16 +202,6 @@ export default function Hero({ onOpenResume, theme }: HeroProps) {
 
           {/* Right Column: Visual Android Phone Mockup Simulator */}
           <div className="lg:col-span-5 flex justify-center items-center relative py-4 lg:py-0">
-            {/* Interactive Badge indicator above the phone for usability discovery */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8, type: 'spring' }}
-              className="absolute -top-1.5 right-[10%] z-30 bg-gradient-to-r from-brand-green to-emerald-500 text-black font-extrabold text-[10px] px-3 py-1 rounded-full shadow-lg border border-brand-green/20 uppercase tracking-widest flex items-center gap-1"
-            >
-              <Smartphone className="w-3 h-3 animate-bounce" /> Interactive App Playroom
-            </motion.div>
-
             {/* Background glowing rings for depth */}
             <div className="absolute -inset-10 rounded-full bg-brand-green/5 blur-3xl -z-10 animate-pulse"></div>
             
@@ -215,7 +211,19 @@ export default function Hero({ onOpenResume, theme }: HeroProps) {
               transition={{ type: 'spring', damping: 20, stiffness: 80, delay: 0.3 }}
               className="relative w-full flex justify-center"
             >
-              <AndroidPhoneMockup />
+              <div className="relative w-full max-w-[320px] sm:max-w-[340px]">
+                {/* Interactive Badge indicator positioned EXACTLY relative to the phone's border */}
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8, type: 'spring' }}
+                  className="absolute -top-3.5 right-6 z-30 bg-gradient-to-r from-brand-green to-emerald-500 text-black font-extrabold text-[10px] px-3.5 py-1.5 rounded-full shadow-lg border border-brand-green/20 uppercase tracking-widest flex items-center gap-1.5 whitespace-nowrap"
+                >
+                  <Smartphone className="w-3.5 h-3.5 animate-bounce" /> Interactive App Playroom
+                </motion.div>
+                
+                <AndroidPhoneMockup />
+              </div>
             </motion.div>
           </div>
 

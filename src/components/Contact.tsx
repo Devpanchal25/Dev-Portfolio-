@@ -1,67 +1,76 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Phone, MapPin, Github, Linkedin, Send, CheckCircle, RefreshCw, MessageSquare, Settings, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Linkedin, Send, CheckCircle, MessageSquare, Copy, Check, ExternalLink, RefreshCw, AlertCircle } from 'lucide-react';
 import { personalInfo } from '../data';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [accessKey, setAccessKey] = useState(() => localStorage.getItem('portfolio_contact_key') || '');
-  const [showConfig, setShowConfig] = useState(false);
-  const [isSuccessWeb3, setIsSuccessWeb3] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'activation' | 'error' | null>(null);
+  const [emailCopied, setEmailCopied] = useState(false);
+  const [messageCopied, setMessageCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(personalInfo.email);
+    setEmailCopied(true);
+    setTimeout(() => setEmailCopied(false), 2500);
+  };
+
+  const handleCopyMessage = () => {
+    const text = `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`;
+    navigator.clipboard.writeText(text);
+    setMessageCopied(true);
+    setTimeout(() => setMessageCopied(false), 2500);
+  };
+
+  const getGmailComposeUrl = () => {
+    const subject = encodeURIComponent(`Portfolio Message from ${formData.name || 'Visitor'}`);
+    const body = encodeURIComponent(
+      `Hello Dev,\n\n${formData.message || ''}\n\n---\nSender Name: ${formData.name || ''}\nSender Email: ${formData.email || ''}`
+    );
+    return `https://mail.google.com/mail/?view=cm&fs=1&to=${personalInfo.email}&su=${subject}&body=${body}`;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) return;
 
     setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    if (accessKey.trim()) {
-      try {
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            access_key: accessKey.trim(),
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-            subject: `New Portfolio Message from ${formData.name}`,
-            from_name: 'Android Portfolio'
-          })
-        });
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${personalInfo.email}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `New Portfolio Inquiry from ${formData.name}`,
+          _template: 'table',
+          _captcha: 'false'
+        })
+      });
 
-        const result = await response.json();
-        if (result.success) {
-          setIsSuccessWeb3(true);
-          setIsSubmitted(true);
-          setFormData({ name: '', email: '', message: '' });
-          setTimeout(() => {
-            setIsSubmitted(false);
-            setIsSuccessWeb3(false);
-          }, 5000);
-        } else {
-          alert(`Submission error: ${result.message || 'Please verify your access key.'}`);
-        }
-      } catch (err) {
-        console.error('Contact submission error:', err);
-        alert('API transmission failed. Please check your internet connection or use direct email link.');
-      } finally {
-        setIsSubmitting(false);
-      }
-    } else {
-      // Simulate API transport latency
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
+      const data = await response.json();
+
+      if (response.ok && (data.success === 'true' || data.success === true)) {
+        setSubmitStatus('success');
         setFormData({ name: '', email: '', message: '' });
-        // Reset success banner after 4 seconds
-        setTimeout(() => setIsSubmitted(false), 4000);
-      }, 1500);
+      } else if (data.message && data.message.includes('Activate')) {
+        setSubmitStatus('activation');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (err) {
+      console.error('Contact submission error:', err);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -73,24 +82,27 @@ export default function Contact() {
   const contactMethods = [
     {
       icon: <Mail className="w-5 h-5 text-brand-green" />,
-      label: 'Email Developer',
+      label: 'Direct Email',
       value: personalInfo.email,
       href: `mailto:${personalInfo.email}`,
-      id: 'email-btn'
+      id: 'email-btn',
+      copyable: true
     },
     {
       icon: <Phone className="w-5 h-5 text-brand-blue" />,
       label: 'Phone Call / WA',
       value: personalInfo.phone,
       href: `tel:${personalInfo.phone.replace(/\s+/g, '')}`,
-      id: 'phone-btn'
+      id: 'phone-btn',
+      copyable: false
     },
     {
       icon: <MapPin className="w-5 h-5 text-purple-400" />,
       label: 'Location coordinates',
       value: personalInfo.location,
       href: 'https://maps.google.com/?q=Vadodara,+Gujarat,+India',
-      id: 'location-btn'
+      id: 'location-btn',
+      copyable: false
     }
   ];
 
@@ -120,31 +132,49 @@ export default function Contact() {
             <div className="flex flex-col gap-2">
               <h3 className="text-xl font-bold font-display text-white">Get In Touch</h3>
               <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed text-justify">
-                Have a job opening, project query, or simply want to chat about Android architectures, Jetpack Compose, or legal AI models? Drop a message, and I will write back.
+                Have a job opening, project query, or simply want to chat about Android architectures, Jetpack Compose, or legal AI models? Send a direct email or use the form below.
               </p>
             </div>
 
             {/* Methods lists */}
             <div className="flex flex-col gap-3 mt-2">
               {contactMethods.map((method) => (
-                <a
+                <div
                   key={method.id}
-                  id={method.id}
-                  href={method.href}
-                  target={method.id === 'location-btn' ? '_blank' : undefined}
-                  referrerPolicy={method.id === 'location-btn' ? 'no-referrer' : undefined}
-                  className="glass-panel p-4 rounded-xl border border-zinc-800 flex items-center gap-4 hover:border-zinc-700 hover:bg-zinc-900/60 transition-all duration-200 group"
+                  className="glass-panel p-4 rounded-xl border border-zinc-800 flex items-center justify-between hover:border-zinc-700 hover:bg-zinc-900/60 transition-all duration-200 group"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center group-hover:scale-105 transition-transform">
-                    {method.icon}
-                  </div>
-                  <div>
-                    <span className="text-zinc-500 text-[9px] font-mono uppercase block">{method.label}</span>
-                    <span className="text-white text-xs sm:text-sm font-semibold tracking-tight block mt-0.5 group-hover:text-brand-green transition-colors font-mono">
-                      {method.value}
-                    </span>
-                  </div>
-                </a>
+                  <a
+                    id={method.id}
+                    href={method.href}
+                    target={method.id === 'location-btn' ? '_blank' : undefined}
+                    referrerPolicy={method.id === 'location-btn' ? 'no-referrer' : undefined}
+                    className="flex items-center gap-4 flex-1 min-w-0"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      {method.icon}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <span className="text-zinc-500 text-[9px] font-mono uppercase block">{method.label}</span>
+                      <span className="text-white text-xs sm:text-sm font-semibold tracking-tight block mt-0.5 group-hover:text-brand-green transition-colors font-mono truncate">
+                        {method.value}
+                      </span>
+                    </div>
+                  </a>
+
+                  {method.copyable && (
+                    <button
+                      onClick={handleCopyEmail}
+                      className="p-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-lg text-zinc-400 hover:text-brand-green transition-all focus:outline-none shrink-0 ml-2 cursor-pointer"
+                      title="Copy email address"
+                    >
+                      {emailCopied ? (
+                        <Check className="w-4 h-4 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                    </button>
+                  )}
+                </div>
               ))}
             </div>
 
@@ -172,83 +202,17 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right Column: Dynamic Contact Form */}
+          {/* Right Column: Instant Live Email Dispatcher Form */}
           <div className="lg:col-span-7">
             <div className="glass-panel p-6 sm:p-8 rounded-2xl border border-zinc-800 bg-zinc-900/20 relative overflow-hidden">
-              <div className="flex items-center justify-between border-b border-zinc-900 pb-2 mb-6">
-                <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-500">
-                  Secure SSL Gateway Form
+              <div className="flex items-center justify-between border-b border-zinc-900 pb-3 mb-6">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-brand-green flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5" /> Direct Email Dispatch Form
                 </span>
-                <button
-                  type="button"
-                  onClick={() => setShowConfig(!showConfig)}
-                  className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono text-brand-green bg-brand-green/10 hover:bg-brand-green/20 rounded-lg transition-colors border border-brand-green/20 focus:outline-none cursor-pointer"
-                  title="Configure live email notification setup"
-                >
-                  <Settings className={`w-3 h-3 ${showConfig ? 'animate-spin' : ''}`} />
-                  <span>{accessKey ? 'Live: Web3Forms Active' : '⚡ Enable Live Emails'}</span>
-                </button>
+                <span className="text-[10px] font-mono text-zinc-500">
+                  To: {personalInfo.email}
+                </span>
               </div>
-
-              {/* Expandable Web3Forms settings block */}
-              <AnimatePresence>
-                {showConfig && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="overflow-hidden mb-6"
-                  >
-                    <div className="bg-zinc-900/50 border border-zinc-850 rounded-xl p-4 flex flex-col gap-3 text-xs">
-                      <div className="flex flex-col gap-1">
-                        <span className="text-zinc-200 font-bold flex items-center gap-1.5 font-sans">
-                          <Globe className="w-3.5 h-3.5 text-brand-green" /> Receive Real Emails for Free:
-                        </span>
-                        <p className="text-zinc-400 text-[11px] leading-relaxed">
-                          Since this is a client-side React app, we have integrated <a href="https://web3forms.com" target="_blank" rel="noopener noreferrer" className="text-brand-green hover:underline">Web3Forms</a>. To receive real-time messages directly to your email inbox:
-                        </p>
-                        <ol className="list-decimal list-inside text-zinc-400 text-[10px] pl-1 leading-normal flex flex-col gap-0.5 mt-1 font-mono">
-                          <li>Go to <a href="https://web3forms.com" target="_blank" rel="noopener noreferrer" className="text-brand-green hover:underline">web3forms.com</a></li>
-                          <li>Enter your personal email to get a free <strong>Access Key</strong></li>
-                          <li>Paste it below — we'll save it in your local browser storage!</li>
-                        </ol>
-                      </div>
-
-                      <div className="flex flex-col gap-1.5 mt-1">
-                        <label htmlFor="access-key" className="text-zinc-400 text-[10px] font-mono font-semibold">
-                          Web3Forms Access Key Token:
-                        </label>
-                        <div className="flex gap-2">
-                          <input
-                            type="password"
-                            id="access-key"
-                            value={accessKey}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              setAccessKey(val);
-                              localStorage.setItem('portfolio_contact_key', val);
-                            }}
-                            placeholder="e.g. xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-                            className="flex-1 bg-zinc-950 border border-zinc-800 rounded-lg py-2 px-3 text-[11px] text-white placeholder-zinc-600 focus:outline-none focus:border-brand-green font-mono"
-                          />
-                          {accessKey && (
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setAccessKey('');
-                                localStorage.removeItem('portfolio_contact_key');
-                              }}
-                              className="px-3 py-2 bg-red-950/40 hover:bg-red-950/60 border border-red-900/40 text-red-400 text-[10px] font-mono rounded-lg transition-colors cursor-pointer"
-                            >
-                              Disconnect
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 
@@ -272,7 +236,7 @@ export default function Contact() {
                 {/* Email Address */}
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="email-input" className="text-zinc-400 text-xs font-medium font-mono">
-                    Email Address <span className="text-brand-green">*</span>
+                    Your Email Address <span className="text-brand-green">*</span>
                   </label>
                   <input
                     type="email"
@@ -303,44 +267,111 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* Submit Action Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !formData.name.trim() || !formData.email.trim() || !formData.message.trim()}
-                  className="w-full py-3.5 bg-brand-green disabled:bg-zinc-800 disabled:text-zinc-500 disabled:cursor-not-allowed hover:bg-brand-green/95 text-black font-bold text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 transform active:scale-[0.99] focus:outline-none cursor-pointer"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>Transmitting payload...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 stroke-[2.5]" />
-                      <span>{accessKey ? 'Transmit Live Message' : 'Send Secure Message'}</span>
-                    </>
-                  )}
-                </button>
+                {/* Submit Action Buttons */}
+                <div className="flex flex-col gap-2 mt-1">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || !formData.name.trim() || !formData.email.trim() || !formData.message.trim()}
+                    className="w-full py-3.5 bg-brand-green disabled:bg-zinc-800 disabled:text-zinc-500 disabled:cursor-not-allowed hover:bg-brand-green/95 text-black font-bold text-xs sm:text-sm rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 transform active:scale-[0.99] focus:outline-none cursor-pointer"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        <span>Sending message to {personalInfo.email}...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 stroke-[2.5]" />
+                        <span>Send Message Directly</span>
+                      </>
+                    )}
+                  </button>
+
+                  <div className="flex gap-2">
+                    <a
+                      href={getGmailComposeUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-2.5 bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-zinc-300 text-xs font-medium rounded-xl flex items-center justify-center gap-1.5 transition-colors"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-red-400" />
+                      <span>Send via Gmail</span>
+                    </a>
+                    <button
+                      type="button"
+                      onClick={handleCopyMessage}
+                      className="px-4 py-2.5 bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-zinc-300 text-xs font-medium rounded-xl flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                      title="Copy typed details"
+                    >
+                      {messageCopied ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <span className="text-emerald-400">Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span>Copy Form</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
               </form>
 
-              {/* Success Alert Banner - Styled like a premium Android Material Snack toast */}
+              {/* Status Banner Feedback */}
               <AnimatePresence>
-                {isSubmitted && (
+                {submitStatus && (
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute bottom-4 left-4 right-4 bg-emerald-950 border border-emerald-500/30 p-3.5 rounded-xl flex items-center gap-3 shadow-2xl z-30"
+                    className="mt-4"
                   >
-                    <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
-                    <div>
-                      <span className="text-white text-xs font-bold block leading-none">Message Sent Successfully!</span>
-                      <span className="text-zinc-400 text-[10px] block mt-1 leading-none font-mono">
-                        {isSuccessWeb3 
-                          ? "Real message sent! An email notification is in transit." 
-                          : "Simulated transit complete. Thank you!"}
-                      </span>
-                    </div>
+                    {submitStatus === 'success' && (
+                      <div className="bg-emerald-950/90 border border-emerald-500/40 p-4 rounded-xl flex items-center gap-3 shadow-2xl">
+                        <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
+                        <div className="flex-1">
+                          <span className="text-white text-xs font-bold block leading-none">Email Dispatched!</span>
+                          <span className="text-zinc-300 text-[11px] block mt-1 leading-relaxed font-mono">
+                            Your message has been sent directly to <strong>{personalInfo.email}</strong>. Dev will write back soon!
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {submitStatus === 'activation' && (
+                      <div className="bg-amber-950/90 border border-amber-500/40 p-4 rounded-xl flex items-center gap-3 shadow-2xl">
+                        <CheckCircle className="w-5 h-5 text-amber-400 shrink-0" />
+                        <div className="flex-1">
+                          <span className="text-white text-xs font-bold block leading-none">First-Time Email Sent!</span>
+                          <span className="text-zinc-300 text-[11px] block mt-1 leading-relaxed font-mono">
+                            The message was sent to FormSubmit service. If this is the first submission to <strong>{personalInfo.email}</strong>, a confirmation link was emailed to verify the inbox. You can also click <strong>"Send via Gmail"</strong> above to send directly from your Gmail account!
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {submitStatus === 'error' && (
+                      <div className="bg-red-950/90 border border-red-500/40 p-4 rounded-xl flex items-center gap-3 shadow-2xl">
+                        <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+                        <div className="flex-1">
+                          <span className="text-white text-xs font-bold block leading-none">Transmission Notice</span>
+                          <span className="text-zinc-300 text-[11px] block mt-1 leading-relaxed font-mono">
+                            Could not dispatch directly via HTTP. Please click <strong>"Send via Gmail"</strong> or <strong>"Default Mail App"</strong> above to send to <strong>{personalInfo.email}</strong> instantly!
+                          </span>
+                        </div>
+                        <a
+                          href={getGmailComposeUrl()}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-400 transition-colors flex items-center gap-1 shrink-0"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span>Gmail</span>
+                        </a>
+                      </div>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -352,3 +383,5 @@ export default function Contact() {
     </section>
   );
 }
+
+

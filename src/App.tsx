@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Cpu, CheckCircle2, Sparkles, Smartphone, Code } from 'lucide-react';
 import Navbar from './components/Navbar';
@@ -12,6 +12,43 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ResumeModal from './components/ResumeModal';
 
+// Fast, zero-re-render GPU cursor glow
+function CursorGlow() {
+  const glowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let requestRef: number = 0;
+    let mouseX = -100;
+    let mouseY = -100;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!requestRef) {
+        requestRef = requestAnimationFrame(() => {
+          if (glowRef.current) {
+            glowRef.current.style.background = `radial-gradient(400px circle at ${mouseX}px ${mouseY}px, rgba(61, 220, 132, 0.08), transparent 80%)`;
+          }
+          requestRef = 0;
+        });
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (requestRef) cancelAnimationFrame(requestRef);
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={glowRef}
+      className="hidden md:block pointer-events-none fixed inset-0 z-0 select-none opacity-45 transition-opacity duration-300"
+    />
+  );
+}
+
 export default function App() {
   // Page Loading state (Simulates specialized Android apk compilation)
   const [loading, setLoading] = useState(true);
@@ -23,10 +60,7 @@ export default function App() {
   // Modals state
   const [resumeOpen, setResumeOpen] = useState(false);
 
-  // Mouse trail/glow coordinates
-  const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
-
-  // Terminal compilation logs simulator
+  // Fast terminal compilation logs simulator
   useEffect(() => {
     const logs = [
       'Initializing Android Runtime environment (OS 14)...',
@@ -42,24 +76,14 @@ export default function App() {
       if (currentLogIndex < logs.length) {
         setLoadingLogs(prev => [...prev, logs[currentLogIndex]]);
         currentLogIndex++;
-        // Speed up logs slightly
-        setTimeout(addLog, currentLogIndex === logs.length ? 450 : 250);
+        setTimeout(addLog, 45);
       } else {
-        // Dismiss loading screen shortly after final success log
-        setTimeout(() => setLoading(false), 600);
+        // Fast dismiss for instant site opening
+        setTimeout(() => setLoading(false), 120);
       }
     };
 
     addLog();
-  }, []);
-
-  // Mouse coordinate tracking for desktop cursor glow effect
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const toggleTheme = () => {
@@ -79,7 +103,7 @@ export default function App() {
           <motion.div 
             key="loader"
             exit={{ opacity: 0, y: -25 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="fixed inset-0 z-101 bg-zinc-950 flex flex-col items-center justify-center p-4 text-zinc-200 select-none font-mono"
           >
             <div className="w-full max-w-lg bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden flex flex-col gap-5">
@@ -132,13 +156,8 @@ export default function App() {
       {!loading && (
         <div className={`flex flex-col min-h-screen relative overflow-hidden ${theme === 'light' ? 'light-mode-override' : ''}`}>
           
-          {/* Custom Cursor Glow (Desktop only, hidden on print) */}
-          <div 
-            className="hidden md:block pointer-events-none fixed inset-0 z-0 select-none opacity-45 dark:opacity-45 light:opacity-20 transition-opacity duration-300"
-            style={{
-              background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(61, 220, 132, 0.08), transparent 80%)`
-            }}
-          />
+          {/* Custom Cursor Glow (Desktop only, zero re-renders) */}
+          <CursorGlow />
 
           {/* Nav header */}
           <Navbar 

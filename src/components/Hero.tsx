@@ -203,7 +203,7 @@ export default function Hero({ onOpenResume, theme }: HeroProps) {
           {/* Right Column: Visual Android Phone Mockup Simulator */}
           <div className="lg:col-span-5 flex justify-center items-center relative py-4 lg:py-0">
             {/* Background glowing rings for depth */}
-            <div className="absolute -inset-10 rounded-full bg-brand-green/5 blur-3xl -z-10 animate-pulse"></div>
+            <div className="absolute -inset-10 rounded-full bg-brand-green/5 blur-2xl -z-10 animate-glow-1"></div>
             
             <motion.div
               initial={{ opacity: 0, x: 40 }}
@@ -211,18 +211,20 @@ export default function Hero({ onOpenResume, theme }: HeroProps) {
               transition={{ type: 'spring', damping: 20, stiffness: 80, delay: 0.3 }}
               className="relative w-full flex justify-center"
             >
-              <div className="relative w-full max-w-[320px] sm:max-w-[340px]">
-                {/* Interactive Badge indicator positioned EXACTLY relative to the phone's border */}
+              <div className="relative w-full max-w-[320px] sm:max-w-[340px] flex flex-col items-center">
+                {/* Interactive Badge indicator positioned clearly above the phone frame */}
                 <motion.div 
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: -10, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ delay: 0.8, type: 'spring' }}
-                  className="absolute -top-3.5 right-6 z-30 bg-gradient-to-r from-brand-green to-emerald-500 text-black font-extrabold text-[10px] px-3.5 py-1.5 rounded-full shadow-lg border border-brand-green/20 uppercase tracking-widest flex items-center gap-1.5 whitespace-nowrap"
+                  className="mb-3.5 z-30 bg-gradient-to-r from-brand-green to-emerald-500 text-black font-extrabold text-[10px] px-4 py-1.5 rounded-full shadow-lg border border-brand-green/20 uppercase tracking-widest flex items-center gap-1.5 whitespace-nowrap self-center"
                 >
                   <Smartphone className="w-3.5 h-3.5 animate-bounce" /> Interactive App Playroom
                 </motion.div>
                 
-                <AndroidPhoneMockup />
+                <div className="w-full">
+                  <AndroidPhoneMockup />
+                </div>
               </div>
             </motion.div>
           </div>

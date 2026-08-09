@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -14,6 +13,8 @@
 /* Base custom styles */
 html {
   scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -40,41 +41,39 @@ body {
   background: #3f3f46;
 }
 
-/* Custom glow animation */
+/* GPU-accelerated glow animation without dynamic blur filter keyframes */
 @keyframes pulseGlow {
   0%, 100% {
-    transform: scale(1);
-    opacity: 0.5;
-    filter: blur(80px);
+    transform: scale(1) translateZ(0);
+    opacity: 0.45;
   }
   50% {
-    transform: scale(1.1);
-    opacity: 0.7;
-    filter: blur(100px);
+    transform: scale(1.08) translateZ(0);
+    opacity: 0.65;
   }
 }
 
 .animate-glow-1 {
-  animation: pulseGlow 15s infinite ease-in-out;
+  will-change: transform, opacity;
+  animation: pulseGlow 12s infinite ease-in-out;
 }
 
 .animate-glow-2 {
-  animation: pulseGlow 20s infinite ease-in-out reverse;
+  will-change: transform, opacity;
+  animation: pulseGlow 16s infinite ease-in-out reverse;
 }
 
-/* Glassmorphism utility */
+/* High-performance surface panel without heavy backdrop-filter lag */
 .glass-panel {
-  background: rgba(15, 15, 20, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(18, 18, 24, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  transform: translateZ(0);
 }
 
 .glass-panel-light {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(0, 0, 0, 0.08);
+  transform: translateZ(0);
 }
 
 /* Custom glow borders */

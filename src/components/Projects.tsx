@@ -40,7 +40,7 @@ export default function Projects() {
                 <span className="text-zinc-500 text-[10px] block font-mono">Vadodara, India</span>
               </div>
               <div className="text-center flex flex-col items-center">
-                <CloudSun className="w-16 h-16 text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.3)] animate-pulse" />
+                <CloudSun className="w-16 h-16 text-yellow-400" />
               </div>
             </div>
 

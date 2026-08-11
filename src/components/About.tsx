@@ -26,10 +26,10 @@ export default function About() {
 
   const characterBadges = [
     { icon: <BookOpen className="w-3.5 h-3.5" />, text: 'Information Technology Student' },
-    { icon: <Code2 className="w-3.5 h-3.5" />, text: 'Android Core Specialist' },
+    { icon: <Code2 className="w-3.5 h-3.5" />, text: 'MindMatrix Android Intern' },
+    { icon: <Cpu className="w-3.5 h-3.5" />, text: 'Android Core Specialist' },
     { icon: <Lightbulb className="w-3.5 h-3.5" />, text: 'Interested in AI integrations' },
-    { icon: <Cpu className="w-3.5 h-3.5" />, text: 'Passionate about clean architecture' },
-    { icon: <Milestone className="w-3.5 h-3.5" />, text: 'Continuous learner' }
+    { icon: <Milestone className="w-3.5 h-3.5" />, text: 'Passionate about clean architecture' }
   ];
 
   return (

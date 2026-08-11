@@ -40,8 +40,13 @@ export interface Skill {
 export interface Certificate {
   title: string;
   issuer: string;
+  partner?: string;
   date: string;
   credentialId?: string;
+  enrollmentNo?: string;
+  collegeName?: string;
+  period?: string;
   previewUrl?: string;
+  verifyUrl?: string;
   bullets?: string[];
 }

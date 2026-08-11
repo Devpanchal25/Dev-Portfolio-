@@ -1,4 +1,4 @@
-import { Project, Education, Skill, Certificate } from './types';
+import { Project, Education, Skill, Certificate, Internship } from './types';
 
 export const personalInfo = {
   name: 'Panchal Dev Ghanshyambhai',
@@ -15,6 +15,37 @@ export const personalInfo = {
   languages: ['English', 'Hindi', 'Gujarati'],
   bio: 'Android Developer passionate about building scalable Android applications using modern Android technologies including Kotlin, Jetpack Compose, MVVM, Hilt, Retrofit, Coroutines, and Firebase. I enjoy solving real-world problems through clean architecture, intuitive UI, and high-performance mobile applications.'
 };
+
+export const internships: Internship[] = [
+  {
+    id: 'mindmatrix',
+    role: 'Android App Development Intern',
+    company: 'MindMatrix.io (CL Infotech Pvt. Ltd.)',
+    companyDetail: 'MoU Partner of Gujarat Technological University (GTU)',
+    period: '8th Jan 2026 – 25th Apr 2026',
+    location: 'Online / Bengaluru, India',
+    bullets: [
+      'Engineered native Android applications using Kotlin, Jetpack Compose, and Android Studio in accordance with industry best practices.',
+      'Hands-on development with Android Studio, Google Cloud Labs, and Google AI Studio.',
+      'Designed intuitive UI/UX components, built application prototypes, and conducted iterative debugging and feature enhancements.',
+      'Implemented Firebase backend services, authentication flows, testing suites, and standard Android release workflows.'
+    ],
+    technologies: ['Kotlin', 'Jetpack Compose', 'Android Studio', 'Google AI Studio', 'Google Cloud Labs', 'Firebase']
+  },
+  {
+    id: 'ibm-skillsbuild',
+    role: 'Artificial Intelligence Intern',
+    company: 'IBM SkillsBuild / CSRBOX',
+    companyDetail: 'CSRBOX Industry Partnership Program',
+    period: 'June 2025 – July 2025',
+    location: 'Online',
+    bullets: [
+      'Completed an intensive training program on Natural Language Processing (NLP), AI Ethics, and Prompt Engineering.',
+      'Researched, designed, and deployed "Justicia AI" as a capstone project aimed at digital legal accessibility.'
+    ],
+    technologies: ['Python', 'NLP', 'AI Ethics', 'Prompt Engineering', 'JavaScript', 'Google AI Studio']
+  }
+];
 
 export const skills: Skill[] = [
   // Languages
@@ -131,11 +162,29 @@ export const educationList: Education[] = [
 
 export const certificates: Certificate[] = [
   {
+    title: 'Android App Development',
+    issuer: 'MindMatrix.io (CL Infotech Pvt. Ltd.)',
+    partner: 'MoU Partner of Gujarat Technological University (GTU)',
+    date: '25th April 2026',
+    credentialId: 'Mx25INT00216',
+    enrollmentNo: '231243116007',
+    collegeName: 'Sardar Patel College of Engineering',
+    period: '8th Jan 2026 – 25th Apr 2026',
+    verifyUrl: 'https://lms.mindmatrix.io/',
+    bullets: [
+      'Successfully completed an intensive 3.5-month internship in Android App Development.',
+      'Developed native Android applications using Kotlin, Jetpack Compose, and Android Studio following industry standards.',
+      'Hands-on experience with Google Cloud Labs, Google AI Studio, and Firebase workflows.',
+      'Mastered UI/UX prototyping, feature development, debugging, and iterative release processes.'
+    ]
+  },
+  {
     title: 'IBM SkillsBuild AI Internship Certificate',
     issuer: 'IBM SkillsBuild / CSRBOX',
+    partner: 'CSRBOX Industry Partnership Program',
     date: 'July 2025',
     credentialId: 'CSRBOX-IBM-AI-2025-9824',
-    previewUrl: 'IBM SkillsBuild Internship Program',
+    verifyUrl: 'https://skillsbuild.org/',
     bullets: [
       'Completed a rigorous 4-week structured internship on Artificial Intelligence concepts and NLP.',
       'Successfully developed and presented "Justicia AI" as a capstone project aimed at digital legal equity.',
@@ -143,3 +192,4 @@ export const certificates: Certificate[] = [
     ]
   }
 ];
+

@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { X, Printer, Copy, FileText, Check, Download } from 'lucide-react';
 import { useState } from 'react';
-import { personalInfo, educationList, projects, skills } from '../data';
+import { personalInfo, educationList, projects, skills, internships } from '../data';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -27,6 +27,15 @@ GitHub: ${personalInfo.github} | LinkedIn: ${personalInfo.linkedin}
 
 PROFESSIONAL SUMMARY
 ${personalInfo.bio}
+
+INTERNSHIPS & EXPERIENCE
+${internships.map(intern => `
+- ${intern.role}
+  Company: ${intern.company} (${intern.period})
+  Location: ${intern.location}
+  Bullets:
+  ${intern.bullets.map(b => `* ${b}`).join('\n  ')}
+`).join('\n')}
 
 PROJECTS
 ${projects.map(proj => `
@@ -149,6 +158,31 @@ TECHNICAL SKILLS
               <p className="text-zinc-700 text-xs leading-relaxed text-justify print:text-zinc-800">
                 {personalInfo.bio}
               </p>
+            </div>
+
+            {/* Internships & Experience */}
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-950 border-b border-zinc-800 pb-1 mb-3 print:border-black">
+                Internships & Training
+              </h3>
+              <div className="flex flex-col gap-3">
+                {internships.map((intern) => (
+                  <div key={intern.id} className="flex flex-col gap-1">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start">
+                      <div>
+                        <span className="font-bold text-zinc-950 text-xs">{intern.role}</span>
+                        <p className="text-zinc-600 text-[11px] font-medium">{intern.company} {intern.companyDetail ? `• ${intern.companyDetail}` : ''}</p>
+                      </div>
+                      <span className="text-zinc-500 font-mono text-[10px] shrink-0">{intern.period}</span>
+                    </div>
+                    <ul className="list-disc pl-4 text-xs text-zinc-600 flex flex-col gap-0.5 print:text-zinc-700">
+                      {intern.bullets.map((b, idx) => (
+                        <li key={idx}>{b}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Projects */}

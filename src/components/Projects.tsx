@@ -1,9 +1,9 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { Github, ExternalLink, Code, Smartphone, Database, Scale, CloudSun, Briefcase, Bot } from 'lucide-react';
 import { projects } from '../data';
 
 export default function Projects() {
-  
   const getProjectIcon = (id: string) => {
     switch (id) {
       case 'skycast':

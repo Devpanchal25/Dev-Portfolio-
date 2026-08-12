@@ -3,17 +3,23 @@ import { Project, Education, Skill, Certificate, Internship } from './types';
 export const personalInfo = {
   name: 'Panchal Dev Ghanshyambhai',
   firstName: 'Dev',
-  title: 'Android Developer',
-  location: 'Vadodara, Gujarat, India',
+  title: 'B.E Information Technology',
+  location: 'Vadodara, Gujarat',
+  address: '861, Suthar Faliyu, Bhayli, Vadodara, Gujarat, 391410',
   email: 'devit250705@gmail.com',
   phone: '+91 8866081024',
   github: 'https://github.com/Devpanchal25',
+  githubUser: 'Devpanchal_25',
   linkedin: 'https://www.linkedin.com/in/dev-panchal-302636384',
-  credly: 'https://www.credly.com/users/dev_25', // from Dev_25 on Credly
+  linkedinUser: 'Devpanchal_25',
+  credly: 'https://www.credly.com/users/dev_25',
+  credlyUser: 'Dev_25',
   birthDate: '25/07/2005',
+  gender: 'Male',
+  nationality: 'Indian',
   hobbies: ['Cricket', 'Travelling', 'Movies'],
   languages: ['English', 'Hindi', 'Gujarati'],
-  bio: 'Android Developer passionate about building scalable Android applications using modern Android technologies including Kotlin, Jetpack Compose, MVVM, Hilt, Retrofit, Coroutines, and Firebase. I enjoy solving real-world problems through clean architecture, intuitive UI, and high-performance mobile applications.'
+  bio: 'Android Developer with hands-on experience building modern mobile applications using Kotlin, Jetpack Compose, MVVM, Hilt, Retrofit, Coroutines, and Firebase. Passionate about building scalable mobile applications and continuously improving software engineering skills.'
 };
 
 export const internships: Internship[] = [
@@ -126,15 +132,15 @@ export const projects: Project[] = [
   {
     id: 'justicia-ai',
     title: 'Justicia AI – Legal Rights Assistant',
-    description: 'AI-powered legal rights assistant designed to provide legal guidance through intelligent conversations and automated email responses.',
+    description: 'AI-powered legal rights assistant providing statutory guidance through intelligent natural language conversations, automated query handling, and email responses.',
     details: [
-      'Developed Justicia AI, an AI-powered legal rights assistant to provide instant guidance on statutory rights.',
-      'Implemented automated email-based query handling and AI-generated responses using natural language models.',
-      'Applied NLP (Natural Language Processing) concepts and prompt engineering to improve conversation accuracy and relevance.',
-      'Designed a dual Python & JavaScript backend architecture to optimize processing speed and accuracy.'
+      'Developed Justicia AI, an intelligent legal assistant enabling users to navigate statutory rights, consumer laws, and legal procedures.',
+      'Implemented automated email-based query resolution with AI-generated responses using natural language models.',
+      'Applied NLP (Natural Language Processing) concepts, prompt chaining, and context memory for high-accuracy legal guidance.',
+      'Built a dual Python & JavaScript architecture for optimal processing speed, prompt parsing, and API request handling.'
     ],
-    technologies: ['Python', 'JavaScript', 'NLP', 'AI', 'Email Automation', 'Google AI Studio'],
-    githubUrl: 'https://github.com/Devpanchal25',
+    technologies: ['Python', 'JavaScript', 'NLP', 'AI Ethics', 'Google AI Studio', 'REST API', 'Email Automation'],
+    githubUrl: 'https://github.com/Devpanchal25/JusticiaAI',
     demoUrl: '#demo',
     type: 'ai',
     featured: true
@@ -144,18 +150,18 @@ export const projects: Project[] = [
 export const educationList: Education[] = [
   {
     degree: 'Bachelor of Engineering (B.E.)',
-    field: 'Information Technology',
+    field: 'information Technology',
     institution: 'Sardar Patel College of Engineering and Technology',
-    period: '2023 – 2026',
-    location: 'Anand, Gujarat, India',
+    period: '2023-2026',
+    location: 'Anand, Gujarat',
     cgpa: '7.44'
   },
   {
-    degree: 'Diploma in Engineering',
-    field: 'Information Technology',
+    degree: 'Diploma in information Technology',
+    field: 'information Technology',
     institution: 'Parul University',
-    period: '2020 – 2023',
-    location: 'Vadodara, Gujarat, India',
+    period: '2020-2023',
+    location: 'Vadodara, Gujarat',
     cgpa: '7.46'
   }
 ];

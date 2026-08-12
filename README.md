@@ -52,7 +52,7 @@ An interactive, high-performance web portfolio highlighting native Android engin
 * **Architecture:** Kotlin, Jetpack Compose, Room Database, Flow, MVVM, Repository Pattern
 * **Overview:** Enterprise-grade Android app for managing workforce tasks, assigning goals, and tracking historical employee efficiency using Room DB.
 
-### ⚖️ 3. Justicia AI – Legal Rights Assistant
+### ⚖️ 3. [Justicia AI – Legal Rights Assistant](https://github.com/Devpanchal25/JusticiaAI)
 * **Architecture:** Python, JavaScript, NLP, AI Prompt Engineering, Google AI Studio
 * **Overview:** Capstone AI legal guidance system built during the IBM SkillsBuild internship program to resolve statutory queries via natural language processing and email automation.
 
